@@ -10,7 +10,7 @@
 
 	<groupId>io.scif</groupId>
 	<artifactId>scifio-omero</artifactId>
-	<version>0.1.1-SNAPSHOT</version>
+	<version>0.2.0</version>
 
 	<name>SCIFIO Format for OMERO</name>
 	<description>A SCIFIO Format implementation which provides transparent access to image pixels on an OMERO server.</description>
@@ -127,7 +127,7 @@ Wisconsin-Madison.</organizationName>
 	<scm>
 		<connection>scm:git:git://github.com/scifio/scifio-omero</connection>
 		<developerConnection>scm:git:git@github.com:scifio/scifio-omero</developerConnection>
-		<tag>HEAD</tag>
+		<tag>scifio-omero-0.2.0</tag>
 		<url>http://github.com/scifio/scifio-omero</url>
 	</scm>
 
