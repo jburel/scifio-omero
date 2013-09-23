@@ -515,7 +515,7 @@ public class OMEROFormat extends AbstractFormat {
 
 		// TODO: Use scifio.metadata() instead, once it has been released.
 		final Map<String, String> map =
-			scifio.get(MetadataService.class).parse(noExt, "&");
+			scifio.get(MetadataService.class).parse(noExt, "\n");
 
 		for (final String key : map.keySet()) {
 			final String value = map.get(key);
