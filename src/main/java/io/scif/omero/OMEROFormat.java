@@ -53,6 +53,7 @@ import net.imglib2.meta.axis.DefaultLinearAxis;
 import net.imglib2.meta.axis.LinearAxis;
 import omero.RDouble;
 import omero.RInt;
+import omero.RLong;
 import omero.ServerError;
 import omero.api.RawPixelsStorePrx;
 import omero.model.Pixels;
@@ -452,7 +453,9 @@ public class OMEROFormat extends AbstractFormat {
 			if (store != null) {
 				// save the data
 				try {
-					store.save();
+					final RLong imageID = store.save().getImage().getId();
+					// store resultant image ID into the metadata
+					getMetadata().setImageID(imageID.getValue());
 					store.close();
 				}
 				catch (final ServerError err) {
