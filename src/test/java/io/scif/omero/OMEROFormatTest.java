@@ -110,26 +110,30 @@ public class OMEROFormatTest {
         final MetadataService metadataService =
             omeroFormat.context().service(MetadataService.class);
         final String name = "data";
-        final String server = "localhost";
         final int port = 4064;
         final String user = "root";
         final String password = "omero";
         
-        final String omeroString = "name=" + name + //
-                "&server=" + server + //
-                "&port=" + port + //
-                "&user=" + user + //
-                "&password=" + password + ".omero";
-
-        final OMEROFormat.Metadata meta =
-            (OMEROFormat.Metadata) omeroFormat.createMetadata();
-        OMEROFormat.parseArguments(metadataService, omeroString, meta);
-
-        assertEquals(name, meta.getName());
-        assertEquals(server, meta.getCredentials().getServer());
-        assertEquals(port, meta.getCredentials().getPort());
+        
         omero.client c = null;
         try {
+            omero.client client = new omero.client();
+            client.createSession();
+            final String server = client.getProperty("omero.host");
+            final String omeroString = "name=" + name + //
+                    "&server=" + server + //
+                    "&port=" + port + //
+                    "&user=" + user + //
+                    "&password=" + client.getProperty("omero.rootpass") + ".omero";
+
+            final OMEROFormat.Metadata meta =
+                (OMEROFormat.Metadata) omeroFormat.createMetadata();
+            OMEROFormat.parseArguments(metadataService, omeroString, meta);
+
+            assertEquals(name, meta.getName());
+            assertEquals(server, meta.getCredentials().getServer());
+            assertEquals(port, meta.getCredentials().getPort());
+            
             OMEROSession session = new OMEROSession(meta.getCredentials());
             c = session.getClient();
             String sessionID = c.getSessionId();
